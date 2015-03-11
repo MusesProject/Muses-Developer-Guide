@@ -1,0 +1,48 @@
+\documentclass[a4paper,11pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[UKenglish]{babel}
+\usepackage[UKenglish]{isodate}
+
+\addto{\captionsspanish}{\renewcommand{\chaptername}{Chapter}}
+\addto{\captionsspanish}{\renewcommand{\appendixname}{Appendix}}
+\addto{\captionsspanish}{\renewcommand{\indexname}{Appendix}}
+\addto{\captionsspanish}{\renewcommand{\contentsname}{Appendix}}
+\addto{\captionsspanish}{\renewcommand{\bibname}{Bibliography}}
+
+\title{MUSES Developer Guide}
+\author{Yasir Ali, Paloma de las Cuevas Delgado, ...}
+\cleanlookdateon
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Preliminaries}
+
+This guide describes everything a developer needs to know to start developing for the MUSES system.
+
+The MUSES System \cite{deliverable21} has been developed following a client-server architecture.
+ 
+The client or device side is related to the end user, usually an employee who uses a mobile or portable, and possibly
+personal, device to access enterprise resources. From the enterprise security point of view, the system should prevent the user from using the device incorrectly. Therefore, MUSES monitors the user's context and behaviour, and controls their actions, allowing or forbidding them depending on those policies.
+
+The MUSES server side is controlled by an enterprise security manager, the Chief Security Officer (CSO), who defines the security policies to be considered in the system. The security policies are used by the MUSES server to identify which behaviour is allowed and which one is not. The server then receives, stores, and processes all the gathered information from users' devices. After that, it analyses the data, performing a real-time risk and trust analysis. In addition, the system detects policy violations through event correlation techniques, adapting to changes in the environment, as well as non-secure user behaviours.
+
+\chapter{Building MUSES Client}
+
+
+\chapter{Building MUSES Server}
+
+
+\chapter{Creating and integrating new sensors}
+
+
+\chapter{Installing MUSES}
+
+\bibliographystyle{abbrv}
+\bibliography{MUSESDevGuide}
+
+\end{document}
