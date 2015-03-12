@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{url}
+\usepackage{graphicx}
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
 
@@ -39,6 +40,7 @@ The MUSES server side is controlled by an enterprise security manager, the Chief
 All the MUSES system code is available at \url{https://github.com/MusesProject}. That is the Github organisation page for MUSES, and it contains the following repositories:
 
 \begin{description}
+  \item[Muses-Developer-Guide] Repository with the TeX files which consist of a manual for users that may want to develop for the MUSES project.
   \item[Muses-Security-Quiz]
   \item[MusesCommon] 
   \item[MusesServer] This repository contains all the files in the Java-Maven MUSES server project.
@@ -71,11 +73,39 @@ As we will use Eclipse for MUSES development, the first step is to install the A
 Now we can install the ADT plugin. This can be done by selecting again \textit{Help > Install New Software...} and then looking at this reposiroty \url{https://dl-ssl.google.com/android/eclipse/}. After that, selecting \textit{Developer Tools} from the package list for installing it (by clicking \textit{Next} and \textit{Finish}), and then restart Eclipse one more time.
 
 \section{Building Common project}
+\label{sec:common}
 
 In order to build the server project, we need to build the common project first as the server project has references to common project. As said in Section \ref{sec:musesgit}, \textit{MusesCommon} is located inside a repository of the MUSES organisation in GitHub (\url{https://github.com/MusesProject}). You can either download it as a ZIP file, or simply clone or fork the repository. For more information about Git, please refer to GitHub Help \cite{githelp:site}.
 
+Please note that this is a Maven project (\url{http://maven.apache.org/}). For this reason, Eclipse should have Maven integrated. Following the steps for installing the JDK od ADK plugins, we should go to Eclipse\textit{Help > Install New Software...}. Maven will be at \url{http://download.eclipse.org/technology/m2e/releases} repository \cite{m2eclipse:site}.
+
+Having this done, next step is to import the common project. On Eclipse, click on \textit{File > Import...}. A dialog will show up, to select the import source. A folder with the name ``Maven'' should appear, like in Figure \ref{fig:importdialog}. If not, please make sure that you have installed Maven for Eclipse, and successfully restarted Eclipse.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{./Figures/importdialog.png}
+    \caption{Shown dialog after clicking on \textit{File > Import...} inside Eclipse.}
+    \label{fig:importdialog}
+  \end{center}
+\end{figure}
+
+Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse...} the folder where the project is stored. Finally, click \textit{Next} and \textit{Finish}. For running projects with Maven, you must right-click on the project, and then go to \textit{Run As > Maven clean}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Now we are ready to import and run the client.
+
+\section{Building Client application}
+\label{sec:buildclient}
+
 \chapter{Building MUSES Server}
 \label{ch:server}
+
+%Java EE Developers
+%Startexplorer
+%Git clone
+%Import
+%mvn eclipse:eclipse
+%mysql
+%GRANT ALL
+%maven clean
+%maven install
 
 
 \chapter{Creating and integrating new sensors}
