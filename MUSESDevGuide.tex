@@ -14,7 +14,7 @@
 \addto{\captionsspanish}{\renewcommand{\bibname}{Bibliography}}
 
 \title{MUSES Developer Guide}
-\author{Yasir Ali, Sergio Zamarripa, Paloma de las Cuevas Delgado, ...}
+\author{Sweden Connectivity AB, S2 Grupo, University of Granada, \\HiTec, University of Geneva}
 \cleanlookdateon
 
 \begin{document}
@@ -89,13 +89,25 @@ Having this done, next step is to import the common project. On Eclipse, click o
   \end{center}
 \end{figure}
 
-Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse...} the folder where the project is stored. Finally, click \textit{Next} and \textit{Finish}. For running projects with Maven, you must right-click on the project, and then go to \textit{Run As > Maven clean}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Now we are ready to import and run the client.
+Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse...} the folder where the project is stored. Finally, click \textit{Next} and \textit{Finish}. For running projects with Maven, you must right-click on the project, and then go to \textit{Run As > Maven clean}, as it is shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Now we are ready to import and run the client.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.65\textwidth]{./Figures/runAs.png}
+    \caption{How to run a Maven project by making \textit{Run As > Maven clean}, and then \textit{Run As > Maven install}.}
+    \label{fig:RunAs}
+  \end{center}
+\end{figure}
 
 \section{Building Client application}
 \label{sec:buildclient}
 
+
+
 \chapter{Building MUSES Server}
 \label{ch:server}
+
+MUSES server has been developed using open source guidelines. It implements an Apache Tomcat server, and a MySQL database. This chapter describes all necessary steps to follow in order to build the server and run tests in it.
 
 %Java EE Developers
 %Startexplorer
