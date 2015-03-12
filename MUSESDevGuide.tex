@@ -2,6 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usepackage{url}
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
 
@@ -20,7 +21,8 @@
 \maketitle
 \tableofcontents
 
-\chapter{Preliminaries}
+\chapter{Introduction}
+\label{ch:intro}
 
 This guide describes everything a developer needs to know to start developing for the MUSES system.
 
@@ -31,16 +33,24 @@ personal, device to access enterprise resources. From the enterprise security po
 
 The MUSES server side is controlled by an enterprise security manager, the Chief Security Officer (CSO), who defines the security policies to be considered in the system. The security policies are used by the MUSES server to identify which behaviour is allowed and which one is not. The server then receives, stores, and processes all the gathered information from users' devices. After that, it analyses the data, performing a real-time risk and trust analysis. In addition, the system detects policy violations through event correlation techniques, adapting to changes in the environment, as well as non-secure user behaviours.
 
+This guide is structured as follows. First, Chapters \label{ch:client} and \ref{ch:server} detail how to build MUSES, in order to be able to star developing and testing the system, either you want to develop for the client (Chapter \ref{ch:client}), the server (Chapter \ref{ch:server}), or both. Then, Chapter \ref{ch:sensors} specifies how to integrate new sensors to the MUSES client, for better monitoring user's actions and making the \textit{context\footnote{Any information that can be used to characterize the situation of the user.\cite{deliverable61}} observation} more complete. Finally, Chapter \ref{ch:installmuses} enumerates what are the steps to install MUSES in a real company environment.
+
 \chapter{Building MUSES Client}
+\label{ch:client}
+
+The first prototype of MUSES has been developed for Android. This chapter describes the needed tools, as well as building instructions, for developing inside the MUSES client. For instructions about how to install the whole system, please refer to Chapter \ref{ch:installmuses}.
 
 
 \chapter{Building MUSES Server}
+\label{ch:server}
 
 
 \chapter{Creating and integrating new sensors}
+\label{ch:sensors}
 
 
 \chapter{Installing MUSES}
+\label{ch:installmuses}
 
 \bibliographystyle{abbrv}
 \bibliography{MUSESDevGuide}
