@@ -33,7 +33,7 @@ personal, device to access enterprise resources. From the enterprise security po
 
 The MUSES server side is controlled by an enterprise security manager, the Chief Security Officer (CSO), who defines the security policies to be considered in the system. The security policies are used by the MUSES server to identify which behaviour is allowed and which one is not. The server then receives, stores, and processes all the gathered information from users' devices. After that, it analyses the data, performing a real-time risk and trust analysis. In addition, the system detects policy violations through event correlation techniques, adapting to changes in the environment, as well as non-secure user behaviours.
 
-This guide is structured as follows. First, Chapters \label{ch:client} and \ref{ch:server} detail how to build MUSES, in order to be able to star developing and testing the system, either you want to develop for the client (Chapter \ref{ch:client}), the server (Chapter \ref{ch:server}), or both. Then, Chapter \ref{ch:sensors} specifies how to integrate new sensors to the MUSES client, for better monitoring user's actions and making the \textit{context\footnote{Any information that can be used to characterize the situation of the user.\cite{deliverable61}} observation} more complete. Finally, Chapter \ref{ch:installmuses} enumerates the steps to install MUSES in a real company environment.
+This guide is structured as follows. First, Chapters \ref{ch:client} and \ref{ch:server} detail how to build MUSES, in order to be able to star developing and testing the system, either you want to develop for the client (Chapter \ref{ch:client}), the server (Chapter \ref{ch:server}), or both. Then, Chapter \ref{ch:sensors} specifies how to integrate new sensors to the MUSES client, for better monitoring user's actions and making the \textit{context\footnote{Any information that can be used to characterize the situation of the user.\cite{deliverable61}} observation} more complete. Finally, Chapter \ref{ch:installmuses} enumerates the steps to install MUSES in a real company environment.
 
 \chapter{Building MUSES Client}
 \label{ch:client}
@@ -42,7 +42,13 @@ The first prototype of MUSES has been developed for Android. This chapter descri
 
 \section{Installing Android SDK}
 
-As we will use Eclipse for MUSES development, the first step is to install the Android Development Tools (ADT) plugin. 
+As we will use Eclipse for MUSES development, the first step is to install the Android Development Tools (ADT) plugin. The requiremenst are \cite{adt:site}:
+
+\begin{itemize}
+  \item Eclipse 3.7.2 (Indigo) or greater.
+  \item Java Platform (JDK) 6.
+  \item Eclipse Java Development Tools (JDT) plugin. This can be done in Eclipse by selecting \textit{Help > Install New Software...} and then looking at this reposiroty \url{https://dl-ssl.google.com/android/eclipse/}. After that, selecting \textit{Developer Tools} for installing it (by clicking \textit{Next} and \textit{Finish}), and then restart Eclipse.
+\end{itemize}
 
 \chapter{Building MUSES Server}
 \label{ch:server}
