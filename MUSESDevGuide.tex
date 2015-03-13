@@ -109,9 +109,28 @@ Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse
 
 MUSES server has been developed using open source guidelines. It implements an Apache Tomcat server, and a MySQL database. This chapter describes all necessary steps to follow in order to build the server and run tests in it.
 
-%Java EE Developers
-%Startexplorer
-%Git clone
+\section{Necessary tools and configuration}
+\label{sec:serverpreliminaries}
+
+First of all, and as MUSES server has been developed with Eclipse, these are the required tools to be able to finally build the server project. Therefore, the following are needed:
+
+\begin{itemize}
+  \item Eclipse, no specific version.
+  \item Package \textit{Eclipse IDE for Java EE Developers}. To do this, there are two choices:
+  \begin{enumerate}
+    \item In Eclipse go to \textit{Help > Install New Software...}, and select the \textit{http://download.eclipse.org/releases/<youreclipsename>} in the \textit{Work with:} drop-down. Then look for \textit{Web, XML, Java EE and OSGi Enterprise Development} on the package list, and select it. Click \textit{Next} and \textit{Finish}, and restart Eclipse.
+    \item The package is available at \url{https://eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr2}, and the only thing to take into account is selecting the download according to your Eclipse version (name). On the website, simply select the correct one on ``Releases'', download it, and install it.
+  \end{enumerate} 
+  \item StartExplorer Eclipse plug-in. This plug-in is available at \url{http://basti1302.github.io/startexplorer/}, and you can just drag-and-drop the \textit{install} button on your Eclipse menu bar, or following the \textit{Help > Install New Software...} procedure.
+\end{itemize}
+
+Finally, as said in Section \ref{sec:musesgit}, \textit{MusesServer} files are located inside a repository of the MUSES organisation in GitHub (\url{https://github.com/MusesProject}). You can either download it as a ZIP file, or simply clone or fork the repository. For more information about Git, please refer to GitHub Help \cite{githelp:site}.
+
+Before building the server project, MusesCommon project should be built. Please follow instructions of section \ref{sec:common} before continue doing anything else.
+
+\section{Bulding server project}
+\label{sec:buildserver}
+
 %Import
 %mvn eclipse:eclipse
 %mysql
