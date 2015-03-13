@@ -126,18 +126,32 @@ First of all, and as MUSES server has been developed with Eclipse, these are the
 
 Finally, as said in Section \ref{sec:musesgit}, \textit{MusesServer} files are located inside a repository of the MUSES organisation in GitHub (\url{https://github.com/MusesProject}). You can either download it as a ZIP file, or simply clone or fork the repository. For more information about Git, please refer to GitHub Help \cite{githelp:site}.
 
-Before building the server project, MusesCommon project should be built. Please follow instructions of section \ref{sec:common} before continue doing anything else.
+Before building the server project, MusesCommon project should be built. Please follow instructions of Section \ref{sec:common} before continue doing anything else.
 
 \section{Bulding server project}
 \label{sec:buildserver}
 
-%Import
-%mvn eclipse:eclipse
-%mysql
-%GRANT ALL
-%maven clean
-%maven install
+If Section \ref{sec:common} steps were successfully completed, we should have Maven correctly installed, and the MusesCommon project already builded. Now, the MusesServer project should be imported into the workspace in the same way, as a Maven project.
 
+As the database is implemented on MySQL, we have to make sure that we have the \textit{mysql-connector-java} library properly installed. By right-clicking on the server project, at the end of the emerging window click on \textit{Properties}. The library should appear in the list which is in \textit{Java Build Path > Libraries tab}. If it does not appear, click \textit{Cancel} and in Eclipse, go to \textit{Window > Show view > Other...}. In the new window, inside the \textit{Java} folder, select \textit{Package Explorer} and then \textit{Ok}. A new tab will appear next to ``console'', ``error log'', ..., tabs. This tab shows the projects, like the \textit{Project Explorer} does. But in this view, we are able to use the \textit{StartExplorer} plug-in. By right-clicking in the MusesServer project, go to \textit{StartExplorer > Start Shell Here}, and a terminal will appear. If you cannot find this option, make sure that the \textit{StartExplorer} plug-in is installed (see Section \ref{sec:serverpreliminaries}). To obtain all the necessary configuration for managing MySQL databases and, in general, a Maven configuration for Eclipse, type into the terminal: \texttt{mvn eclipse:eclipse}. Wait for it to finish.
+
+\subsection{Preparing the database}
+\label{subsec:database}
+
+The script for creating the MUSES server database is located at \texttt{MusesServer\\/db/startup\_db.sql}, and it should be loaded in the MySQL server at our machine. First, make sure you have MySQL server installed. If not, open a terminal and type \texttt{sudo apt-get install mysql-server-5.6}. During the installation, you will be asked to set a password for the root user. Few basic steps \cite{mysqlguide:site} should be followed to load the MUSES database:
+
+\begin{description}
+  \item[\texttt{root \#/etc/init.d/mysql start}] 
+  \item[\texttt{user \$mysql -u root -h localhost -p}] and then enter the chosen password.
+  \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which loads the database structure from the script.
+  \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which populates the loaded database.
+  \item[\texttt{SHOW DATABASES;}] should list the databases, and also MUSES database.
+  \item[\texttt{USE muses;}]
+  \item[\texttt{SHOW TABLES;}] should list the tables inside MUSES database.
+  \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'localhost';}] which gives permission to the MusesServer project to access the content in the MUSES database.
+\end{description}
+
+Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
 
 \chapter{Creating and integrating new sensors}
 \label{ch:sensors}
