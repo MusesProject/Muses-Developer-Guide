@@ -234,6 +234,47 @@ If all went well, and by making double-click on the server which was just added,
 \chapter{Creating and integrating new sensors}
 \label{ch:sensors}
 
+A new sensor must implement the \texttt{eu.musesproject.client.contextmonitoring.\\sensors.ISensor} interface. This interface has six methods:
+
+\begin{description}
+  \item[void addContextListener(ContextListener listener);] This method takes a ContextListener object, the listener method \textbf{onEvent(ContextEvent contextEvent)} must be called whenever the sensor shall send an event to the MUSES system.
+  \item[void removeContextListener(ContextListener listener);] Should contain a null object to remove the reference to the previous ContextListener object. Usually it is not necessary to call this method.
+  \item[void enable();] The startup process of the sensor should be written or triggered in this method.
+  \item[void disable();] Contains code to stop the sensor so that no more context events are fired to the system.
+  \item[ContextEvent getLastFiredContextEvent();] Each sensor has a history of its fired context events; therefore a List<ContextEvents> must be implemented. The size of the list is limited by the static field CONTEXT\_EVENT\_HISTORY\_SIZE, which is located in the ISensor class. The developer has to take care to update the list probably.
+  \item[void configure(List<SensorConfiguration> config);] If a sensor needs to be configured as it might expect specific values in order run as intended, the developer has to take care about the List<SensorConfiguration> config object. The SensorConfiguration class is located in the package: \texttt{eu.musesproject.client.db.entity}.
+\end{description}
+
+Each sensor must provide a \textbf{public static final String} \textit{TYPE} field. This field is used to identify the sensor. The naming convention is:\\\texttt{CONTEXT\_SENSOR\_<SensorIdentifier>}.
+In addition, and in order to create properties for context events, the sensor must contain a \textbf{public static final String} field for each property identifier.
+
+\section{How to integrate new sensors}
+\label{sec:integratesensor}
+
+First, new sensors should be placed within the MUSES Client project in the following package:
+ 
+\begin{verbatim}
+package eu.musesproject.client.contextmonitoring.sensors;
+\end{verbatim}
+
+Second, in the class:
+
+\begin{verbatim}
+eu.musesproject.client.contextmonitoring.SensorController
+\end{verbatim}
+
+the new sensor has to be initialized. And this has to be done inside the method: 
+
+\begin{verbatim}
+public void startAndConfigureSensors(List<String> enabledSensor){}
+\end{verbatim}
+
+Within this method the initialization has to be done as in the following example:
+
+\begin{verbatim}
+else if(sensorType.equals(SettingsSensor.TYPE)) {
+sensor = new SettingsSensor(context); }
+\end{verbatim}
 
 \chapter{Installing MUSES}
 \label{ch:installmuses}
