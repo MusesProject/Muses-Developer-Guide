@@ -141,8 +141,8 @@ As the database is implemented on MySQL, we have to make sure that we have the \
 The script for creating the MUSES server database is located at \texttt{MusesServer\\/db/startup\_db.sql}, and it should be loaded in the MySQL server at our machine. First, make sure you have MySQL server installed. If not, open a terminal and type \texttt{sudo apt-get install mysql-server-5.6}. During the installation, you will be asked to set a password for the root user. Few basic steps \cite{mysqlguide:site} should be followed to load the MUSES database:
 
 \begin{description}
-  \item[\texttt{root \#/etc/init.d/mysql start}] 
-  \item[\texttt{user \$mysql -u root -h localhost -p}] and then enter the chosen password.
+  \item[\texttt{\$ sudo /etc/init.d/mysql start}] 
+  \item[\texttt{\$ mysql -u root -h localhost -p}] and then enter the chosen password.
   \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which loads the database structure from the script.
   \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which populates the loaded database.
   \item[\texttt{SHOW DATABASES;}] should list the databases, and also MUSES database.
@@ -151,7 +151,15 @@ The script for creating the MUSES server database is located at \texttt{MusesSer
   \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'localhost';}] which gives permission to the MusesServer project to access the content in the MUSES database.
 \end{description}
 
-Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
+Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them locally by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
+
+\section{Integrating Tomcat server}
+\label{sec:eclipsetomcat}
+
+Now that we can have a running client, by following the described steps on Section \ref{sec:buildclient}, and that we just builded the server part (see previous section), it is time for integrating Tomcat on Eclipse. After that, we will be able to test our development in a client-server mode, and locally. And this is an important point, because this step is for development purposes only. To install Apache Tomcat in a system, in order to work as a MUSES server, please refer to Section \ref{sec:tomcat}.
+
+%Tutorial at \cite{eclipsetomcat:site}
+
 
 \chapter{Creating and integrating new sensors}
 \label{ch:sensors}
@@ -159,6 +167,61 @@ Finally, go to Eclipse again, right-click on the MusesServer project, and then g
 
 \chapter{Installing MUSES}
 \label{ch:installmuses}
+
+Table \ref{tab:server_infrastructure} shows the hardware requirements to run MUSES server applications, the following sections will explain how to install and configure these requirements.
+
+\begin{table}
+  \caption{MUSES server infrastructure.}
+  \label{tab:server_infrastructure}
+
+  \begin{center}
+    \begin{tabular}{ |l|l|l| }
+    \hline
+    \multicolumn{3}{|c|}{\textbf{MUSES server}} \\
+    \hline
+    \textbf{Description} & \textbf{Name} & \textbf{Version} \\
+    \hline
+    Hardware & Desktop PC & Intel Core 64 bit \\
+    OS & Ubuntu Desktop & 12.04 LTS \\
+    Virtual Machine & JVM\footnote{Java Virtual Machine} & 1.6.0\_27 \\
+    Servlet Container & Apache Tomcat & 7 \\
+    WEB Server & Apache & 2.2.22 \\
+    Database & MySQL & 5.5.31 \\
+    \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\section{Installing Apache Tomcat (Application Server)}
+\label{sec:tomcat}
+
+Apache Tomcat powers numerous large-scale, mission-critical web applications across a diverse range of industries and organizations. But first of all, minimum Java Runtime Environment (JRE) 6 is required for Tomcat 7. For being able to install the last available version of JRE on the machine, open a terminal and follow this command:
+
+\begin{verbatim}
+$ sudo apt-get install openjdk-7-jre
+\end{verbatim}
+
+If you find problems with the dependencies, the command \texttt{\$ sudo apt-get -f install} fixes the possibly broken dependencies and finishes the installation. Also, you may need to update your system package list, for what you have to do the following:
+
+\begin{description}
+  \item[\$ sudo apt-get update] to update the lists.
+  \item[\$ sudo apt-get upgrade] to install the new version of the packages, found by \textit{updating} the lists.
+\end{description}
+
+Find a correct Tomcat package to install by typing \texttt{\$ apt-cache search tomcat} and looking at the highlighted parts on Figure \ref{fig:tomcatpackages}. In this case, the needed version is version 7.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{./Figures/tomcatpackages.png}
+    \label{fig:tomcatpackages}
+    \caption{What your terminal should show after introducing the \texttt{\$ apt-cache search tomcat} command. The highlighted packages are the ones we have to focus in.}
+  \end{center}
+\end{figure}
+
+Then, to install all Tomcat packages, the following command are needed:
+
+%$ sudo apt-get install tomcat7-admin
+%$ sudo apt-get install tomcat7
 
 \bibliographystyle{abbrv}
 \bibliography{MUSESDevGuide}
