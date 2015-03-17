@@ -148,7 +148,8 @@ The script for creating the MUSES server database is located at \texttt{MusesSer
   \item[\texttt{SHOW DATABASES;}] should list the databases, and also MUSES database.
   \item[\texttt{USE muses;}]
   \item[\texttt{SHOW TABLES;}] should list the tables inside MUSES database.
-  \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'localhost';}] which gives permission to the MusesServer project to access the content in the MUSES database.
+  \item[\texttt{CREATE USER 'muses'@'\%' IDENTIFIED BY 'muses11';}] creates a remote user for MUSES.
+  \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'\%';}] which gives permission to the MusesServer project to access the content in the MUSES database. Replace '\%' with localhost to make it only accessible from localhost.
 \end{description}
 
 Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them locally by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
@@ -237,9 +238,9 @@ If all went well, and by making double-click on the server which was just added,
 \chapter{Installing MUSES}
 \label{ch:installmuses}
 
-Table \ref{tab:server_infrastructure} shows the hardware requirements to run MUSES server applications, the following sections will explain how to install and configure these requirements.
+Table \ref{tab:server_infrastructure} shows the hardware requirements to run MUSES server applications. The following sections will explain how to install and configure these requirements but the database, which was explained in Section \ref{subsec:database}.
 
-\begin{table}
+\begin{table}[!htbp]
   \caption{MUSES server infrastructure.}
   \label{tab:server_infrastructure}
 
@@ -266,11 +267,88 @@ Table \ref{tab:server_infrastructure} shows the hardware requirements to run MUS
 
 Section \ref{sec:eclipsetomcat} explained how to install the last version of Apache Tomcat server, because it was needed for developing purposes. Once you have followed the steps in that section, we continue configuring the server in order to finally have a working MUSES environment on our system.
 
-But first of all, we have to install the Tomcat web application administrator by this command \cite{tomcatdocu:site}:
+As said in that section, Tomcat configuration files are at \texttt{/etc/tomcat7} directory. Among the configuration files, \textit{server.xml} can be found. Also, Figure \ref{fig:serverconfig} shown the configuration of Apache Tomcat, which includes the listening port. The default listening port for Apache is 8080, but we see in the figure that we have configured it at port 8888. The file \textit{server.xml} offers the possibility of changing the default port:
+\\
+\\
+\begin{verbatim}
+<Connector port="8080" protocol="HTTP/1.1" 
+               connectionTimeout="20000" 
+               redirectPort="8443" />
+...
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{verbatim}
+
+By simply changing \textit{connector port} 8080 for 8888. Please note that you may have to open \textit{server.xml} under superuser rights.
+
+Then, we have to install the Tomcat web application administrator by this command \cite{tomcatdocu:site}:
 
 \begin{verbatim}
-$ sudo apt-get install tomcat7
+$ sudo apt-get install tomcat7-admin
 \end{verbatim}
+
+In order to add manager privileges, and to be able to use Tomcat web applications like \textit{host-manager} \cite{tomcatdocu:site}, we need to define a \textit{``manager-gui''} user in \textit{tomcat-users.xml} file. This file is also among the configuration files at \texttt{/etc/tomcat7}. Open this file under superuser rights and make sure to change it until it looks like:
+
+\begin{verbatim}
+<?xml version='1.0' encoding='utf-8'?>
+  <tomcat-users>
+    <role rolename="manager-gui"/>
+ 	  <role rolename="manager"/>
+ 	  <role rolename="admin-gui"/>
+    <role rolename="admin "/>
+    <user username="admin" password="admin"
+          roles="manager, manager-gui"/>
+  </tomcat-users>
+\end{verbatim}
+
+\subsection{SSL configuration Tomcat}
+\label{subsec:ssltomcat}
+
+MUSES is using HTTPS in order to make the communication encrypted, and secure. SSL encryption has to be enabled in Tomcat server configuration with an SSL certificate location, on the server machine. Back again in the Tomcat configuration folder, at \texttt{/etc/tomcat7}, the \textit{web.xml} file allows to configure HTTPS on tomcat.
+
+This way, open the \textit{web.xml} file and add the following lines:
+
+\begin{verbatim}
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>ComMainServlet</web-resource-name>
+    <url-pattern>/commain</url-pattern>
+  </web-resource-collection>
+  <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  </user-data-constraint>
+</security-constraint>
+\end{verbatim}
+
+This will allow the MUSES servlet to listen for HTTPS connections. However, we also have to modify the file \textit{server.xml}, which is the same that have to be modified to change the listening port (see the beginning of this section). What we need now is to enable SSL authentication by adding:
+
+\begin{verbatim}
+<Connector
+  SSLEnabled="true"
+  ciphers="SSL_RSA_WITH_RC4_128_SHA"
+  clientAuth="false"
+  keystoreFile="/etc/tomcat7/keystore.jks"
+  keystorePass="MUSES11"
+  maxThreads="150"
+  port="8443"
+  protocol="HTTP/1.1"
+  scheme="https" secure="true" sslProtocol="TLS" />
+\end{verbatim}
+
+Finally, Apache Tomcat has to be restarted in order to successfully apply the changes. This is done by:
+
+\begin{verbatim}
+$ sudo service tomcat restart
+\end{verbatim}
+
+\section{Starting MUSES}
+\label{sec:musestart}
+
+To be able to start MUSES, the WAR file (Web Archive file) is required. The Tomcat 7.0 application server setup requires deploying the war file in the tomcat container. Follow below instructions. 
+
+Open a web browser and go to this link
+\url{http://localhost:8080/manager/html} 
+It will ask for the user name and password. Enter the credentials which have been set during tomcat configuration\footnote{In our case, we used admin/admin at \textit{tomcat-users.xml}, but they can be changed.}, then it will open the manager page for tomcat. Now in section \textit{\textbf{WAR file to deploy}} click on \textit{Browse...} and select the war file, then click \textit{Deploy}. 
+After doing this the application is listed in the applications column. Now click on the application button to start the server.
 
 \bibliographystyle{abbrv}
 \bibliography{MUSESDevGuide}
