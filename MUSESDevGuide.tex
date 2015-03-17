@@ -203,14 +203,32 @@ On Eclipse, go to \textit{Window > Preferences > Servers > Runtime environment >
   \begin{center}
     \includegraphics[width=0.65\textwidth]{./Figures/addingSRE.png}
     \label{fig:addingSRE}
-    \caption{What your terminal should show after introducing the \texttt{\$ apt-cache search tomcat} command. The highlighted packages are the ones we have to focus in.}
+    \caption{Eclipse window which helps to add a new Runtime Environment. In our case, it will be Apache Tomcat version 7.}
   \end{center}
 \end{figure}
 
 \subsection{Adding Apache Tomcat as a server}
 \label{subsec:addserver}
 
-This is the last step. On Eclipse, right where the tabs of ``console'', ``error log'', ..., are, there is a tab called \textit{Servers}. A message like this should appear: ``No servers are available. Click this link to create a new server...''. Just click on this link or, if you have previously configured servers, just right-click and select \textit{New > Server}. We will see a list similar to the previous one, and we select again \textit{Apache Tomcat v7.0}. Finally, we write a name for our server and click \textit{Finish}.
+This is the last step. On Eclipse, right where the tabs of ``console'', ``error log'', ..., are, there is a tab called \textit{Servers}. A message like this should appear: ``No servers are available. Click this link to create a new server...''. Just click on this link or, if you have previously configured servers, just right-click and select \textit{New > Server}. We will see a list similar to the previous one, and we select again \textit{Apache Tomcat v7.0}. Finally, we write a name for our server and click \textit{Finish}. It should now appear in the list of servers at the Servers tab, as shown in Figure \ref{fig:createdtomcat}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{./Figures/createdtomcat.png}
+    \label{fig:createdtomcat}
+    \caption{Apache Tomcat installed and added into Eclipse.}
+  \end{center}
+\end{figure}
+
+If all went well, and by making double-click on the server which was just added, a new window should appear, and it should look like Figure \ref{fig:serverconfig}. In this view, basic information about the Tomcat server on Eclipse can be changed.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.85\textwidth]{./Figures/serverconfig.png}
+    \label{fig:serverconfig}
+    \caption{Editing basic information about the Apache Tomcat server.}
+  \end{center}
+\end{figure}
 
 \chapter{Creating and integrating new sensors}
 \label{ch:sensors}
