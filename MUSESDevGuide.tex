@@ -349,7 +349,18 @@ The Tomcat 7.0 application server setup requires deploying the war file in the t
 Open a web browser and go to this link
 \url{http://localhost:8080/manager/html} 
 It will ask for the user name and password. Enter the credentials which have been set during tomcat configuration\footnote{In our case, we used admin/admin at \textit{tomcat-users.xml}, but they can be changed.}, then it will open the manager page for tomcat. Now in section \textit{\textbf{WAR file to deploy}} click on \textit{Browse...} and select the war file, then click \textit{Deploy}. 
-After doing this the application is listed in the applications column. Now click on the application button to start the server.
+After doing this, the application should be listed in the applications column. Now click on the application button to start the server.
+
+\section{MUSES client}
+\label{sec:musesclient}
+
+The following steps can be followed either from Windows, MacOS, or Ubuntu.
+
+First of all, in order to install the MUSES application on an Android phone, the MUSES APK file is needed. As said in Section \ref{sec:buildclient}, this is a file that results from compiling the client code. Then, for installing the APK, the MUSES APK file has to be stored into the SD card of the device. Finally, take the Android phone, click on the file once it is stored in the SD card and, wait for it to be installed.
+
+Next step is to add the server certificate also to the SD card. This certificate has been named \textit{localhost.crt} and can be found at the MusesClient Github repository (for more details, please see Section \ref{sec:musesgit}), inside the \textit{Assets} folder. It is important to store this certificate at the device SD card root directory, so it should be at the location \textit{/sdcard/localhost.crt}.
+
+Finally, we muse add the configuration file.
 
 \bibliographystyle{abbrv}
 \bibliography{MUSESDevGuide}
