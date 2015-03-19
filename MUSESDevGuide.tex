@@ -32,6 +32,7 @@
 \usepackage{graphicx}
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
+\usepackage{enumitem}
 
 \newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic publisher logo
 
@@ -112,6 +113,18 @@ This guide is structured as follows. First, Chapters \ref{ch:client} and \ref{ch
 
 The first prototype of MUSES has been developed for Android. This chapter describes the needed tools, as well as building instructions, for developing inside the MUSES client. For instructions about how to install the whole system, please refer to Chapter \ref{ch:installmuses}.
 
+\begin{enumerate}
+	\item Prepare eclipse (or any other IDE) for Android
+	\item Building the Common project
+	\item Deploy the app on a device or emulator (Building Client project)
+	\begin{enumerate}[label*=\arabic*.]
+		\item Create an emulator
+		\item Prepare your device for usb debugging
+		\item Deploy
+	\end{enumerate}
+\end{enumerate}
+
+
 \section{Installing Android SDK}
 \label{sec:ADT}
 
@@ -152,10 +165,42 @@ Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse
   \end{center}
 \end{figure}
 
-\section{Building Client application}
+\section{Building Client project}
 \label{sec:buildclient}
+This section is split into three parts \textit{1. Create an emulator}, \textit{2. Prepare your device for usb debugging}, and \textit{3. Deploy}, each of them describing the necessary steps.
+
+\subsection{Create an emulator}
+\label{sec:createanemulator}
+This step is optional and should just be performed if you don't own an Android device to test with, because the emulator of Android has a bad performance and does not support the full functionality of a device, which can influence your debugging experience.
+\\
+\linebreak
+In order to create an emulator, you have to open the Android Virtual Device Manager (ADV). In Figure \ref{fig:emu_part_1} you can see that you can open the AVD by following step 1, which shows the corresponding icon in the toolbar of eclipse. Alternatively, you can open this dialog in eclipse by following: \textit{Windows -> Android Virtual Device Manager}. Open the emulator creator (step 2 in Figure \ref{fig:emu_part_1}) and fill in the fields with your preferences. Remember, we use the target SDK level 19 in the MUSES project.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{./Figures/emulator_part_1}
+    \label{fig:emu_part_1}
+    \caption{Open the emulator window}
+  \end{center}
+\end{figure}
 
 
+
+\subsection{Prepare your device for usb debugging}
+\label{sec:prepareyourdeviceforusbdebugging}
+Android devices do not support debugging by default, you have to activate the debugging menu on the device manually. Go to the settings of your device and search for the \emph{Build Number}, the location on this setting depends on your device; then you need to click on the \emph{Build Number} seven times. After this, the developer menu is visible in the settings; open this menu and activate \emph{usb debugging}. If your operating system is Windows, you need to download the \emph{usb driver} from the Android SDK Manager (manual: \url{http://developer.android.com/sdk/win-usb.html}), if you are using a mac with OS X, you do not need to perform any further step. If you are using Linux you need to add a \emph{udev} rule (more information about i on \url{http://developer.android.com/tools/device.html#setting-up} step 3).
+ 
+\subsection{Deployment}
+\label{sec:deploytheclient}
+The deployment process is straight forward, you just need to right click you project and select \emph{Run As -> Android Project}. Alternatively, you can also configure the deployment of the app and choose whether, you want to deploy the app on the emulator or the device by default, or if you would like to choose it individually for each deployment. Figure \ref{fig:run_config} shows the dialog of the configuration, you can open this dialog by right clicking on the project \emph{Run As -> Run configurations..}. 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{./Figures/run_config}
+    \label{fig:run_config}
+    \caption{Optional run configuration}
+  \end{center}
+\end{figure}
 
 \chapter{Building MUSES Server}
 \label{ch:server}
