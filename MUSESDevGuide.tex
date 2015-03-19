@@ -482,7 +482,7 @@ $ sudo service tomcat restart
 \section{Starting MUSES}
 \label{sec:musestart}
 
-To be able to start MUSES, the WAR file (Web Archive file) is required. % Yasir, the WAR file, where can it be found?
+To be able to start MUSES, the WAR file (Web Archive file) is required. This war file can be found in the folder called release_binaries inside the MusesServer project.
 The Tomcat 7.0 application server setup requires deploying the war file in the tomcat container. Follow below instructions. 
 
 Open a web browser and go to this link
@@ -499,7 +499,7 @@ First of all, in order to install the MUSES application on an Android phone, the
 
 Next step is to add the server certificate also to the SD card. This certificate has been named \textit{localhost.crt} and can be found at the MusesClient Github repository (for more details, please see Section \ref{sec:musesgit}), inside the \textit{Assets} folder. It is important to store this certificate at the device SD card root directory, so it should be at the location \textit{/sdcard/localhost.crt}.
 
-Finally, we must add the configuration file. This file is named \textit{muses.conf} and can be found at \_\_. Like the server certificate, the configuration file should be stored at the device SD card root directory.
+Finally, we must add the configuration file. This file is named \textit{muses.conf} and can be found at base of the sdcard folder (\sdcard\muses.conf).  \_\_. Like the server certificate, the configuration file should be stored at the device SD card root directory.
 
 \bibliographystyle{abbrv}
 \bibliography{MUSESDevGuide}
