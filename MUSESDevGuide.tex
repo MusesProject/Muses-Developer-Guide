@@ -84,7 +84,7 @@ This guide describes everything a developer needs to know to start developing fo
 The MUSES System \cite{deliverable21} has been developed based on the client-server architecture. 
  
 The client or device is related to the end user, usually an employee who uses a mobile or a portable device possibly
-personal device to access enterprise resources. From the enterprise security point of view, the system should prevent the user from using the device incorrectly and make sure that the employee follows the company policees. Therefore, MUSES monitors the user's context and behaviour, and controls their actions, allowing or forbidding them depending on company policies.
+personal device to access enterprise resources. From the enterprise security point of view, the system should prevent the user from using the device incorrectly and make sure that the employee follows the company policies. Therefore, MUSES monitors the user's context and behaviour, and controls their actions, allowing or forbidding them depending on company policies.
 
 The MUSES server is controlled by an enterprise security manager, the Chief Security Officer (CSO), who defines the security policies to be considered in the MUSES system. The security policies are used by the MUSES server to identify which behaviour is allowed and which one is not. The server then receives, stores, and processes all the gathered information from users' devices. After that, it analyzes the data, performing a real-time risk and trust analysis. In addition, the system detects policy violations through event correlation techniques, adapting to changes in the environment, as well as non-secure user behaviours.
 
@@ -96,14 +96,18 @@ All the MUSES system code is available at \url{https://github.com/MusesProject}.
 \begin{description}
   \item[Muses-Developer-Guide] Repository with the TeX files which consist of a manual for users that may want to develop for the MUSES project.
   \item[Muses-Security-Quiz] Contains the first version of the Spring roo project that implements the Security Quiz for MUSES project.
-  \item[MusesCommon] This repository contains the java classes which are common for client and server projects, to reduce duplication of classes in projects.
+  \item[MusesCommon] This repository contains the Java classes which are common for client and server projects, to reduce duplication of classes in projects.
   \item[MusesServer] This repository contains all the files in the Java-Maven MUSES server project.
   \item[MusesClient] Repository containing the first prototype of the MUSES client, developed for Android.
-  \item[MusesSituationPredictionStudy] Contains the very first prototype of an Android app that uses supervised learning to identify, whether the current device usage is private or professional, with on device classification.
+  \item[MusesSituationPredictionStudy] Contains the very first
+    prototype of an Android app that uses supervised learning to
+    identify, whether the current device usage is private or
+    professional, with on-device classification. 
   \item[MusesClientIOS] Repository containing the first prototype of the MUSES client, developed for iOS.
   \item[MusesAwareLibIOS] A library that can be used by applications to retrieve information relevant for MUSES.
   \item[MusesAwareApp] It contains the files of an Android project which consists of a MUSES-aware application. A MUSES-Aware application is an application that uses the MUSES API in order to notify MUSES of user interactions and adapt its behaviour based on MUSES provided commands/security decisions \cite{deliverable24}.
-  \item[MusesAwareAppTest] Its purpose is testing the MUSES-Aware application.
+  \item[MusesAwareAppTest] Code for testing the MUSES-Aware
+    application. % You should describe _what_ it is too. Test code? - JJ
 \end{description}
 
 This guide is structured as follows. First, Chapters \ref{ch:client} and \ref{ch:server} detail how to build MUSES, in order to be able to star developing and testing the system, either you want to develop for the client (Chapter \ref{ch:client}), the server (Chapter \ref{ch:server}), or both. Then, Chapter \ref{ch:sensors} specifies how to integrate new sensors to the MUSES client, for better monitoring user's actions and making the \textit{context\footnote{Any information that can be used to characterize the situation of the user.\cite{deliverable61}} observation} more complete. Finally, Chapter \ref{ch:installmuses} enumerates the steps to install MUSES in a real company environment.
@@ -114,13 +118,13 @@ This guide is structured as follows. First, Chapters \ref{ch:client} and \ref{ch
 The first prototype of MUSES has been developed for Android. This chapter describes the needed tools, as well as building instructions, for developing inside the MUSES client. For instructions about how to install the whole system, please refer to Chapter \ref{ch:installmuses}.
 
 \begin{enumerate}
-	\item Prepare eclipse (or any other IDE) for Android
-	\item Building the Common project
-	\item Deploy the app on a device or emulator (Building Client project)
+	\item Prepare eclipse (or any other IDE) for Android.
+	\item Building the Common project.
+	\item Deploy the app on a device or emulator (Building Client project).
 	\begin{enumerate}[label*=\arabic*.]
-		\item Create an emulator
-		\item Prepare your device for usb debugging
-		\item Deploy
+		\item Create an emulator.
+		\item Prepare your device for USB debugging.
+		\item Deploy.
 	\end{enumerate}
 \end{enumerate}
 
@@ -128,22 +132,22 @@ The first prototype of MUSES has been developed for Android. This chapter descri
 \section{Installing Android SDK}
 \label{sec:ADT}
 
-As we will use Eclipse for MUSES development, the first step is to install the Android Development Tools (ADT) plugin. The requiremenst are \cite{adt:site}:
+As we will use Eclipse for MUSES development, the first step is to install the Android Development Tools (ADT) plugin. The requirements are \cite{adt:site}:
 
 \begin{itemize}
   \item Eclipse 3.7.2 (Indigo) or greater.
   \item Java Platform (JDK) 6.
-  \item Eclipse Java Development Tools (JDT) plugin. To install this pluging, in Eclipse go to \textit{Help > Install New Software...}, and make sure the \textit{Eclipse <youreclipsename> Update Site} is available by clicking in \textit{Find more software by working with the Available Software Sites preferences.}. Then select it and on the package list, look for \textit{Programming Languages > Eclipse Java Development Tools}. Finally, select Eclipse Java Development Tools and click \textit{Next} and \textit{Finish}. Eclipse will need to be restarted.
+  \item Eclipse Java Development Tools (JDT) plugin. To install this plugin, in Eclipse go to \textit{Help > Install New Software...}, and make sure the \textit{Eclipse <youreclipsename> Update Site} is available by clicking in \textit{Find more software by working with the Available Software Sites preferences.}. Then select it and on the package list, look for \textit{Programming Languages > Eclipse Java Development Tools}. Finally, select Eclipse Java Development Tools and click \textit{Next} and \textit{Finish}. Eclipse will need to be restarted.
 \end{itemize}
 
-Now we can install the ADT plugin. This can be done by selecting again \textit{Help > Install New Software...} and then looking at this reposiroty \url{https://dl-ssl.google.com/android/eclipse/}. After that, selecting \textit{Developer Tools} from the package list for installing it (by clicking \textit{Next} and \textit{Finish}), and then restart Eclipse one more time.
+Now we can install the ADT plugin. This can be done by selecting again \textit{Help > Install New Software...} and then looking at this repository \url{https://dl-ssl.google.com/android/eclipse/}. After that, selecting \textit{Developer Tools} from the package list for installing it (by clicking \textit{Next} and \textit{Finish}), and then restart Eclipse one more time.
 
 \section{Building Common project}
 \label{sec:common}
 
 In order to build the server project, we need to build the common project first as the server project has references to common project. As said in Section \ref{sec:musesgit}, \textit{MusesCommon} is located inside a repository of the MUSES organisation in GitHub (\url{https://github.com/MusesProject}). You can either download it as a ZIP file, or simply clone or fork the repository. For more information about Git, please refer to GitHub Help \cite{githelp:site}.
 
-Please note that this is a Maven project (\url{http://maven.apache.org/}). For this reason, Eclipse should have Maven integrated. Following the steps for installing the JDK od ADK plugins, we should go to Eclipse\textit{Help > Install New Software...}. Maven will be at \url{http://download.eclipse.org/technology/m2e/releases} repository \cite{m2eclipse:site}.
+Please note that this is a Maven project (\url{http://maven.apache.org/}). For this reason, Eclipse should have Maven integrated. Following the steps for installing the JDK or ADK plugins, we should go to Eclipse\textit{Help > Install New Software...}. Maven will be at \url{http://download.eclipse.org/technology/m2e/releases} repository \cite{m2eclipse:site}.
 
 Having this done, next step is to import the common project. On Eclipse, click on \textit{File > Import...}. A dialog will show up, to select the import source. A folder with the name ``Maven'' should appear, like in Figure \ref{fig:importdialog}. If not, please make sure that you have installed Maven for Eclipse, and successfully restarted Eclipse.
 
@@ -155,7 +159,7 @@ Having this done, next step is to import the common project. On Eclipse, click o
   \end{center}
 \end{figure}
 
-Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse...} the folder where the project is stored. Finally, click \textit{Next} and \textit{Finish}. For running projects with Maven, you must right-click on the project, and then go to \textit{Run As > Maven clean}, as it is shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Now we are ready to import and run the client.
+Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse...} the folder where the project is stored. Finally, click \textit{Next} and \textit{Finish}. For running projects with Maven, you must right-click on the project, and then go to \textit{Run As > Maven clean}, as it is shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCCESS'', and then, repeat going to \textit{Run As > Maven install}. Now we are ready to import and run the client.
 
 \begin{figure}
   \begin{center}
@@ -167,14 +171,14 @@ Click on \textit{Existing Maven Projects} and \textit{Next}. Then \textit{Browse
 
 \section{Building Client project}
 \label{sec:buildclient}
-This section is split into three parts \textit{1. Create an emulator}, \textit{2. Prepare your device for usb debugging}, and \textit{3. Deploy}, each of them describing the necessary steps.
+This section is split into three parts \textit{1. Create an emulator}, \textit{2. Prepare your device for USB debugging}, and \textit{3. Deploy}, each of them describing the necessary steps.
 
 \subsection{Create an emulator}
 \label{sec:createanemulator}
 This step is optional and should just be performed if you don't own an Android device to test with, because the emulator of Android has a bad performance and does not support the full functionality of a device, which can influence your debugging experience.
 \\
 \linebreak
-In order to create an emulator, you have to open the Android Virtual Device Manager (ADV). In Figure \ref{fig:emu_part_1} you can see that you can open the AVD by following step 1, which shows the corresponding icon in the toolbar of eclipse. Alternatively, you can open this dialog in eclipse by following: \textit{Windows -> Android Virtual Device Manager}. Open the emulator creator (step 2 in Figure \ref{fig:emu_part_1}) and fill in the fields with your preferences. Remember, we use the target SDK level 19 in the MUSES project.
+In order to create an emulator, you have to open the Android Virtual Device Manager (ADV). In Figure \ref{fig:emu_part_1} you can see that you can open the ADV by following step 1, which shows the corresponding icon in the toolbar of eclipse. Alternatively, you can open this dialog in eclipse by following: \textit{Windows -> Android Virtual Device Manager}. Open the emulator creator (step 2 in Figure \ref{fig:emu_part_1}) and fill in the fields with your preferences. Remember, we use the target SDK level 19 in the MUSES project.
 
 \begin{figure}
   \begin{center}
@@ -186,9 +190,9 @@ In order to create an emulator, you have to open the Android Virtual Device Mana
 
 
 
-\subsection{Prepare your device for usb debugging}
+\subsection{Prepare your device for USB debugging}
 \label{sec:prepareyourdeviceforusbdebugging}
-Android devices do not support debugging by default, you have to activate the debugging menu on the device manually. Go to the settings of your device and search for the \emph{Build Number}, the location on this setting depends on your device; then you need to click on the \emph{Build Number} seven times. After this, the developer menu is visible in the settings; open this menu and activate \emph{usb debugging}. If your operating system is Windows, you need to download the \emph{usb driver} from the Android SDK Manager (manual: \url{http://developer.android.com/sdk/win-usb.html}), if you are using a mac with OS X, you do not need to perform any further step. If you are using Linux you need to add a \emph{udev} rule (more information about i on \url{http://developer.android.com/tools/device.html#setting-up} step 3).
+Android devices do not support debugging by default, you have to activate the debugging menu on the device manually. Go to the settings of your device and search for the \emph{Build Number}, the location on this setting depends on your device; then you need to click on the \emph{Build Number} seven times. After this, the developer menu is visible in the settings; open this menu and activate \emph{USB debugging}. If your operating system is Windows, you need to download the \emph{USB driver} from the Android SDK Manager (manual: \url{http://developer.android.com/sdk/win-usb.html}), if you are using a mac with OS X, you do not need to perform any further step. If you are using Linux you need to add a \emph{udev} rule (more information about i on \url{http://developer.android.com/tools/device.html#setting-up} step 3).
  
 \subsection{Deployment}
 \label{sec:deploytheclient}
@@ -226,12 +230,12 @@ Finally, as said in Section \ref{sec:musesgit}, \textit{MusesServer} files are l
 
 Before building the server project, MusesCommon project should be built. Please follow instructions of Section \ref{sec:common} before continue doing anything else.
 
-\section{Bulding server project}
+\section{Building server project}
 \label{sec:buildserver}
 
-If Section \ref{sec:common} steps were successfully completed, we should have Maven correctly installed, and the MusesCommon project already builded. Now, the MusesServer project should be imported into the workspace in the same way, as a Maven project.
+If Section \ref{sec:common} steps were successfully completed, we should have Maven correctly installed, and the MusesCommon project already built. Now, the MusesServer project should be imported into the workspace in the same way, as a Maven project.
 
-As the database is implemented on MySQL, we have to make sure that we have the \textit{mysql-connector-java} library properly installed. By right-clicking on the server project, at the end of the emerging window click on \textit{Properties}. The library should appear in the list which is in \textit{Java Build Path > Libraries tab}. If it does not appear, click \textit{Cancel} and in Eclipse, go to \textit{Window > Show view > Other...}. In the new window, inside the \textit{Java} folder, select \textit{Package Explorer} and then \textit{Ok}. A new tab will appear next to ``console'', ``error log'', ..., tabs. This tab shows the projects, like the \textit{Project Explorer} does. But in this view, we are able to use the \textit{StartExplorer} plug-in. By right-clicking in the MusesServer project, go to \textit{StartExplorer > Start Shell Here}, and a terminal will appear. If you cannot find this option, make sure that the \textit{StartExplorer} plug-in is installed (see Section \ref{sec:serverpreliminaries}). To obtain all the necessary configuration for managing MySQL databases and, in general, a Maven configuration for Eclipse, type into the terminal: \texttt{mvn eclipse:eclipse}. Wait for it to finish.
+As the database is implemented on MySQL, we have to make sure that we have the \textit{mysql-connector-java} library properly installed. By right-clicking on the server project, at the end of the emerging window click on \textit{Properties}. The library should appear in the list which is in \textit{Java Build Path > Libraries tab}. If it does not appear, click \textit{Cancel} and in Eclipse, go to \textit{Window > Show view > Other...}. In the new window, inside the \textit{Java} folder, select \textit{Package Explorer} and then \textit{OK}. A new tab will appear next to ``console'', ``error log'', ..., tabs. This tab shows the projects, like the \textit{Project Explorer} does. But in this view, we are able to use the \textit{StartExplorer} plug-in. By right-clicking in the MusesServer project, go to \textit{StartExplorer > Start Shell Here}, and a terminal will appear. If you cannot find this option, make sure that the \textit{StartExplorer} plug-in is installed (see Section \ref{sec:serverpreliminaries}). To obtain all the necessary configuration for managing MySQL databases and, in general, a Maven configuration for Eclipse, type into the terminal: \texttt{mvn eclipse:eclipse}. Wait for it to finish.
 
 \subsection{Preparing the database}
 \label{subsec:database}
@@ -250,12 +254,12 @@ The script for creating the MUSES server database is located at \texttt{MusesSer
   \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'\%';}] which gives permission to the MusesServer project to access the content in the MUSES database. Replace '\%' with localhost to make it only accessible from localhost.
 \end{description}
 
-Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them locally by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
+Finally, go to Eclipse again, right-click on the MusesServer project, and then go to \textit{Run As > Maven clean}, as it was shown in Figure \ref{fig:RunAs}. In the console, you will see a ``BUILD SUCCESS'', and then, repeat going to \textit{Run As > Maven install}. Check that there were no errors, specially this type of error: \texttt{\textit{Error calling Driver\#connect}}, which means that the code cannot connect to the database. Now, you can implement functionalities and test them locally by doing \textit{Run As > Maven install} or \textit{Run As > Maven test}.
 
 \section{Integrating Tomcat server}
 \label{sec:eclipsetomcat}
 
-Now that we can have a running client, by following the described steps on Section \ref{sec:buildclient}, and that we just builded the server part (see previous section), it is time for integrating Tomcat on Eclipse. After that, we will be able to test our development in a client-server mode, and locally. And this is an important point, because this step is for development purposes only. To configure Apache Tomcat in a system, in order to work as a MUSES server, please refer to Section \ref{sec:tomcat}.
+Now that we can have a running client, by following the described steps on Section \ref{sec:buildclient}, and that we just built the server part (see previous section), it is time for integrating Tomcat on Eclipse. After that, we will be able to test our development in a client-server mode, and locally. And this is an important point, because this step is for development purposes only. To configure Apache Tomcat in a system, in order to work as a MUSES server, please refer to Section \ref{sec:tomcat}.
 
 To integrate Apache Tomcat on Eclipse three steps are basically needed \cite{eclipsetomcat:site}: to install Apache Tomcat, to add it as a runtime environment, and to add the Tomcat server, strictly speaking.
 
