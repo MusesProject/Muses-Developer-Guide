@@ -246,9 +246,9 @@ The script for creating the MUSES server database is located at \texttt{MusesSer
   \item[\texttt{\$ sudo /etc/init.d/mysql start}] 
   \item[\texttt{\$ mysql -u root -h localhost -p}] and then enter the chosen password.
   \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which loads the database structure from the script.
-  \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which populates the loaded database.
   \item[\texttt{SHOW DATABASES;}] should list the databases, and also MUSES database.
   \item[\texttt{USE muses;}]
+  \item[\texttt{SOURCE /home/yourusername/foldertoMusesServer/db/startup\_db.sql;}] which populates the loaded database.
   \item[\texttt{SHOW TABLES;}] should list the tables inside MUSES database.
   \item[\texttt{CREATE USER 'muses'@'\%' IDENTIFIED BY 'muses11';}] creates a remote user for MUSES.
   \item[\texttt{GRANT ALL ON muses.* TO 'muses'@'\%';}] which gives permission to the MusesServer project to access the content in the MUSES database. Replace '\%' with localhost to make it only accessible from localhost.
